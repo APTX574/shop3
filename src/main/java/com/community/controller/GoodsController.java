@@ -46,7 +46,9 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping(value = "/getgoodsbyid", method = RequestMethod.GET)
-    public String getUserByname(int id) {
+    public String getUserByname(@RequestBody String json) {
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        int id=jsonObject.getInteger("id");
         Map<String, Object> map = new HashMap<>();
         map.put("goods", goodsService.getGoodsById(id));
         return CommunityUtil.getJsonString(200, "success", map);
@@ -54,7 +56,9 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping(value = "/getgoodsbytitle", method = RequestMethod.GET)
-    public String getUserBytitle(String title) {
+    public String getUserBytitle(@RequestBody String json) {
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        String title=jsonObject.getString("title");
         Map<String, Object> map = new HashMap<>();
         map.put("goods", goodsService.getGoodesByTitle(title));
         return CommunityUtil.getJsonString(200, "success", map);
